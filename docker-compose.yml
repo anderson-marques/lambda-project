@@ -1,0 +1,13 @@
+version: '3'
+services:
+  # Create a new hello world project using the runtime
+  sam-init:
+    image: pahud/aws-sam-cli:latest
+    env_file: .env
+    volumes:
+      - $PWD:/home/samcli/app
+    command: >
+      sh -c "
+        sam init -r $LAMBDA_RUNTIME -n $LAMBDA_NAME &&
+        cp -rf ./$LAMBDA_NAME/. ./app/
+      "
